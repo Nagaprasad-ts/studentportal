@@ -10,3 +10,6 @@ export type SharedData = {
     sidebarOpen: boolean;
     [key: string]: unknown;
 };
+
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> =
+    SharedData & T;
