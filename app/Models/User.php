@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
@@ -22,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'usn',
+        'must_reset_password',
+        'role',
     ];
 
     /**
@@ -47,6 +51,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'must_reset_password' => 'boolean',
+            'role' => 'string',
         ];
+    }
+
+    /**
+     * Get the student form associated with the user.
+     */
+    public function studentForm(): HasOne
+    {
+        return $this->hasOne(StudentForm::class);
     }
 }
