@@ -1,11 +1,11 @@
 import { Form, Head } from '@inertiajs/react';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout'; // Assuming admin will use auth layout or similar
 import { importStudents } from '@/routes/students/import';
-import InputError from '@/components/input-error';
 
 export default function ImportStudents() {
     return (
