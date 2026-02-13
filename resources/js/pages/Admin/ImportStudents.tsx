@@ -1,3 +1,4 @@
+import type { Method } from '@inertiajs/core';
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
