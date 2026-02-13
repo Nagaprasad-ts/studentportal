@@ -6,18 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import * as studentImportRoutes from '@/routes/students/import';
 
-type ImportRouteLike = {
-    form: () => {
-        action: string;
-        method: Method | Uppercase<Method>;
-    };
+const importStudentsForm = {
+    action: '/import/students',
+    method: 'post' as const,
 };
-    
-const importStudentsRoute =
-    ((studentImportRoutes as Record<string, unknown>).importStudents ??
-        (studentImportRoutes as Record<string, unknown>).store) as ImportRouteLike;
 
 export default function ImportStudents() {
     return (
@@ -28,7 +21,7 @@ export default function ImportStudents() {
             <Head title="Import Students" />
 
             <Form
-                {...importStudentsRoute.form()}
+                {...importStudentsForm}
                 resetOnSuccess={['file']}
                 className="flex flex-col gap-6"
             >
