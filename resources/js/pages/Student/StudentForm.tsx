@@ -1,14 +1,14 @@
 import { Form, Head, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
+import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import TextLink from '@/components/text-link';
 import AppLayout from '@/layouts/app-layout';
-import { show, store, update, download } from '@/routes/student-form';
-import { PageProps } from '@/types';
-import { StudentForm as StudentFormType } from '@/types/models'; // Assuming you'll create a types/models.ts
+import { store, update, download } from '@/routes/student-form';
+import type { PageProps } from '@/types';
+import type { StudentForm as StudentFormType } from '@/types/models'; // Assuming you'll create a types/models.ts
 
 // Define the type for the StudentForm props
 type StudentFormProps = PageProps & {
@@ -36,14 +36,14 @@ export default function StudentForm() {
             <Head title="Student Form" />
 
             <Form
-                {...formAction.form({
-                    ...initialData,
-                    _method: studentForm ? 'put' : 'post',
-                })}
+                {...formAction.form()}
                 className="flex flex-col gap-6"
             >
-                {({ data, setData, processing, errors }) => (
+                {({ processing, errors }) => (
                     <>
+                        {studentForm && (
+                            <input type="hidden" name="_method" value="put" />
+                        )}
                         <div className="grid gap-6">
                             <div className="grid gap-2">
                                 <Label htmlFor="usn">USN</Label>
@@ -73,10 +73,7 @@ export default function StudentForm() {
                                     id="address"
                                     type="text"
                                     name="address"
-                                    value={data.address}
-                                    onChange={(e) =>
-                                        setData('address', e.target.value)
-                                    }
+                                    defaultValue={initialData.address}
                                     required
                                 />
                                 <InputError message={errors.address} />
@@ -90,10 +87,7 @@ export default function StudentForm() {
                                     id="phone_number"
                                     type="text"
                                     name="phone_number"
-                                    value={data.phone_number}
-                                    onChange={(e) =>
-                                        setData('phone_number', e.target.value)
-                                    }
+                                    defaultValue={initialData.phone_number}
                                     required
                                 />
                                 <InputError message={errors.phone_number} />
@@ -107,10 +101,7 @@ export default function StudentForm() {
                                     id="date_of_birth"
                                     type="date"
                                     name="date_of_birth"
-                                    value={data.date_of_birth}
-                                    onChange={(e) =>
-                                        setData('date_of_birth', e.target.value)
-                                    }
+                                    defaultValue={initialData.date_of_birth}
                                     required
                                 />
                                 <InputError message={errors.date_of_birth} />
