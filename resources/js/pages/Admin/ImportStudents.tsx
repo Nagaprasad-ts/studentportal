@@ -14,7 +14,7 @@ type ImportRouteLike = {
         method: Method | Uppercase<Method>;
     };
 };
-
+    
 const importStudentsRoute =
     ((studentImportRoutes as Record<string, unknown>).importStudents ??
         (studentImportRoutes as Record<string, unknown>).store) as ImportRouteLike;
