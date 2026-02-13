@@ -18,7 +18,7 @@ class UserAndStudentSeeder extends Seeder
             ['email' => 'admin@studentportal.test'],
             [
                 'name' => 'Admin User',
-                'usn' => 'ADM0001',
+                'usn' => 'adm0001',
                 'password' => Hash::make('password'),
                 'must_reset_password' => false,
                 'role' => 'admin',
@@ -30,7 +30,7 @@ class UserAndStudentSeeder extends Seeder
             ['email' => 'accounts@studentportal.test'],
             [
                 'name' => 'Accounts User',
-                'usn' => 'ACC0001',
+                'usn' => 'acc0001',
                 'password' => Hash::make('password'),
                 'must_reset_password' => false,
                 'role' => 'accounts',
@@ -42,7 +42,7 @@ class UserAndStudentSeeder extends Seeder
             ['email' => 'student@studentportal.test'],
             [
                 'name' => 'Student User',
-                'usn' => 'STU0001',
+                'usn' => 'stu0001',
                 'password' => Hash::make('password'),
                 'must_reset_password' => true,
                 'role' => 'student',
