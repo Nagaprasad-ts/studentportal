@@ -1,6 +1,5 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
-import { NavFooter } from '@/components/nav-footer';
+import { Link, usePage } from '@inertiajs/react';
+import { FormInput, Import, LayoutGrid } from 'lucide-react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -13,7 +12,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import type { NavItem } from '@/types';
+import type { NavItem, SharedData } from '@/types';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -22,22 +21,35 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-];
-
-const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
+        title: 'Registration Form',
+        href: '/student-form',
+        icon: FormInput,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
+        title: 'Import Students',
+        href: '/import/students',
+        icon: Import,
+    }
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage<SharedData>().props;
+    const userRole = auth.user?.role;
+
+    const filteredNavItems = mainNavItems.filter(item => {
+        if (item.title === 'Dashboard') {
+            return true; // Dashboard is always visible
+        }
+        if (userRole === 'student' && item.title === 'Registration Form') {
+            return true;
+        }
+        if (userRole === 'accounts' && item.title === 'Import Students') {
+            return true;
+        }
+        return false;
+    });
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -53,11 +65,11 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={filteredNavItems} label="Forms"/>
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

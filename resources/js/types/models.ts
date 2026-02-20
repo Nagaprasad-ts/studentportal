@@ -1,5 +1,8 @@
 export type StudentForm = {
-    address: string;
-    phone_number: string;
-    date_of_birth: string;
+    branch: string;
+    semester: "" | number;
+    gender: "" |"male" | "female";
+    emailID: string;
+    mobileNumber: string;
+    CourseType: "" |"global" | "professional" | "executive";
 };

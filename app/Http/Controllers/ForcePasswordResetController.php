@@ -18,10 +18,10 @@ class ForcePasswordResetController extends Controller
     public function showForceResetForm(Request $request)
     {
         if (! Auth::user()->must_reset_password) {
-            return redirect()->route('dashboard');
+            return redirect()->route('student-form.show');
         }
 
-        return Inertia::render('Auth/ForceResetPassword');
+        return Inertia::render('auth/ForceResetPassword');
     }
 
     /**

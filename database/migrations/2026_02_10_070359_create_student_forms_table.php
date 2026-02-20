@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('student_forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
-            $table->text('address')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->date('date_of_birth')->nullable();
+            $table->string('branch');
+            $table->unsignedTinyInteger('semester');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('emailID');
+            $table->string('mobileNumber');
+            $table->enum('CourseType', ['global', 'professional', 'executive']);
             $table->timestamps();
         });
     }

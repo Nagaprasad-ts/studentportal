@@ -47,22 +47,38 @@
 
         @if ($studentForm)
             <div class="field">
-                <label>Address:</label>
-                <span>{{ $studentForm->address }}</span>
+                <label>Branch:</label>
+                <span>{{ $studentForm->branch }}</span>
             </div>
 
             <div class="field">
-                <label>Phone Number:</label>
-                <span>{{ $studentForm->phone_number }}</span>
+                <label>Semester:</label>
+                <span>{{ $studentForm->semester }}</span>
             </div>
 
             <div class="field">
-                <label>Date of Birth:</label>
-                <span>{{ \Carbon\Carbon::parse($studentForm->date_of_birth)->format('d M Y') }}</span>
+                <label>Gender:</label>
+                <span>{{ ucfirst($studentForm->gender) }}</span>
+            </div>
+
+            <div class="field">
+                <label>Email:</label>
+                <span>{{ $studentForm->emailID }}</span>
+            </div>
+
+            <div class="field">
+                <label>Mobile Number:</label>
+                <span>{{ $studentForm->mobileNumber }}</span>
+            </div>
+
+            <div class="field">
+                <label>Course Type:</label>
+                <span>{{ ucfirst($studentForm->CourseType) }}</span>
             </div>
         @else
             <p>No form data submitted yet.</p>
         @endif
+
     </div>
 </body>
 </html>

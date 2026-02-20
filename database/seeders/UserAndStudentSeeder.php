@@ -50,13 +50,13 @@ class UserAndStudentSeeder extends Seeder
             ],
         );
 
-        StudentForm::updateOrCreate(
-            ['user_id' => $student->id],
-            [
-                'address' => '123 College Road, Bengaluru',
-                'phone_number' => '9876543210',
-                'date_of_birth' => '2003-01-15',
-            ],
-        );
+        // StudentForm::updateOrCreate(
+        //     ['user_id' => $student->id],
+        //     [
+        //         'address' => '123 College Road, Bengaluru',
+        //         'phone_number' => '9876543210',
+        //         'date_of_birth' => '2003-01-15',
+        //     ],
+        // );
     }
 }

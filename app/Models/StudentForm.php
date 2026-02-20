@@ -16,10 +16,12 @@ class StudentForm extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'address',
-        'phone_number',
-        'date_of_birth',
+        'branch',
+        'semester',
+        'gender',
+        'emailID',
+        'mobileNumber',
+        'CourseType',
     ];
 
     /**

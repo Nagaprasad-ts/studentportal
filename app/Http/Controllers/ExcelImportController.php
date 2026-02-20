@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\StudentsImport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
+use Throwable;
 
 class ExcelImportController extends Controller
 {
@@ -22,15 +23,34 @@ class ExcelImportController extends Controller
      */
     public function importStudents(Request $request)
     {
-        $request->validate([
-            'file' => ['required', 'file', 'mimes:xlsx,xls'],
-        ]);
-
         try {
-            Excel::import(new StudentsImport, $request->file('file'));
+            $request->validate([
+                'file' => ['required', 'file', 'mimes:xlsx,xls'],
+            ]);
+
+            $import = new StudentsImport;
+            $import->import($request->file('file'));
+
+            if ($import->failures()->isNotEmpty()) {
+                $error = 'The following rows failed to import: ';
+                foreach ($import->failures() as $failure) {
+                    $error .= 'Row '.$failure->row().': '.rtrim(implode(', ', $failure->errors()), '.').'. ';
+                }
+
+                return redirect()->back()->with('error', $error);
+            }
+
             return redirect()->back()->with('success', 'Students imported successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error importing students: ' . $e->getMessage());
+        } catch (ValidationException $e) {
+            $failures = $e->failures();
+            $error = 'Error importing students: ';
+            foreach ($failures as $failure) {
+                $error .= 'Row '.$failure->row().': '.implode(', ', $failure->errors()).' ';
+            }
+
+            return redirect()->back()->with('error', $error);
+        } catch (Throwable $th) {
+            return redirect()->back()->with('error', 'An unexpected error occurred: '.$th->getMessage());
         }
     }
 }

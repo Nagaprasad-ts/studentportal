@@ -6,10 +6,9 @@ use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Concerns\UsnValidationRules;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -28,7 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(), // This will be used only if password is provided
         ])->validate();
 
-        $password = $input['password'] ?? Str::random(10); // Generate if not provided
+        $password = $input['password'] ?? 'password'; // Use 'password' as default if not provided
 
         return User::create([
             'name' => $input['name'],

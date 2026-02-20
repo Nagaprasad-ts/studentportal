@@ -8,8 +8,13 @@ export type SharedData = {
     name: string;
     auth: Auth;
     sidebarOpen: boolean;
+    flash: {
+        success?: string;
+        error?: string;
+    };
     [key: string]: unknown;
 };
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> =
-    SharedData & T;
+export type PageProps<
+    T extends Record<string, unknown> = Record<string, unknown>,
+> = SharedData & T;
